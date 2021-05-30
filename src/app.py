@@ -1,13 +1,13 @@
-import requests
-from bs4 import BeautifulSoup
+import pymongo
 
+uri = "mongodb://127.0.0.1:27017"
+client = pymongo.MongoClient(uri)
+print("connect to database successfully.")
+database = client['zhaoyu']
+collection = database['books']
 
-request = requests.get("https://www.johnlewis.com/anyday-john-lewis-partners-hinton-office-chair/black/p4201464")
-soup = BeautifulSoup(request.content, "html.parser")
-element = soup.find("p", {"class":"price price--large price--large--anyday"})
-string_price = element.text.strip()
-price = float(string_price[1:])
+books = collection.find({})
+print("It is here.")
 
-print("the item price is "+str(price))
-
-
+for book in books:
+    print(book)
