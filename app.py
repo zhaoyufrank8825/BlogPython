@@ -1,9 +1,13 @@
 from menu import Menu
-from database import Database
+from src.common.database import Database
+from flask import Flask
 
 
-Database.initialize()
+app = Flask(__name__)
 
-menu = Menu()
-menu.run_menu()
+@app.route("/")
+def hello():
+    return "Hello world!"
 
+if __name__ == '__main__':
+    app.run()

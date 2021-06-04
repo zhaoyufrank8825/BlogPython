@@ -1,19 +1,17 @@
 import datetime, uuid
-from models.post import Post
-from database import Database
+from src.models.post import Post
+from src.common.database import Database
 
 
 class Blog:
-    def __init__(self, author, title, description, id=None) -> None:
+    def __init__(self, author, title, description, _id=None) -> None:
         self.author = author
         self.title = title
         self.description = description
-        self.id = uuid.uuid4().hex if id is None else id
+        self._id = uuid.uuid4().hex if _id is None else _id
     
-    def new_post(self):
-        title = input("Enter post title: ")
-        content = input("Enter post content: ")
-        post = Post(blog_id = self.id, 
+    def new_post(self, title, content):
+        post = Post(blog_id = self._id, 
                     title=title, 
                     content=content, 
                     author=self.author, 
@@ -21,7 +19,7 @@ class Blog:
         post.save_to_mongo()
 
     def get_posts(self):
-        return Post.from_blog(self.id)
+        return Post.from_blog(self._id)
 
     def save_to_mongo(self):
         Database.insert(collection="blogs", data=self.json())
@@ -31,15 +29,12 @@ class Blog:
             "author": self.author,
             "title": self.title,
             "description": self.description,
-            "id": self.id
+            "_id": self._id
         }
     
     @classmethod
     def from_mongo(cls, id):
-        blog = Database.find_one("blogs", {"id":id})
-        return cls(author=blog["author"],
-                    title=blog["title"],
-                    description=blog["description"],
-                    id=blog["id"])
+        blog = Database.find_one("blogs", {"_id":id})
+        return cls(**blog)
 
     

@@ -1,5 +1,5 @@
-from database import Database
-from models.blog import Blog
+from src.common.database import Database
+from src.models.blog import Blog
 
 
 class Menu:
