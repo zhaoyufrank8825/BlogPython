@@ -1,7 +1,5 @@
-from os import EX_TEMPFAIL
-from typing_extensions import ParamSpec
-
 from flask import sessions
+from models.blog import Blog
 from src.common.database import Database
 import uuid
 
@@ -51,7 +49,7 @@ class User:
         sessions['email'] = None   
 
     def get_blogs(self):
-        pass
+        return Blog.find_by_author_id(self._id)
 
     def json(self):
         return {
