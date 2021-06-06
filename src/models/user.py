@@ -1,5 +1,5 @@
-from flask import sessions
-from models.blog import Blog
+from flask import session
+from src.models.blog import Blog
 from src.common.database import Database
 import uuid
 
@@ -35,21 +35,30 @@ class User:
         if user is None:
             new_user = cls(email, password)
             new_user.save_to_mongo()
-            sessions['email'] = email
+            session["email"] = email
             return True
         else:
             return False
 
     @staticmethod
     def login(email):
-        sessions['email'] = email
+        session["email"] = email
 
     @staticmethod
     def logout():
-        sessions['email'] = None   
+        session["email"] = None   
 
     def get_blogs(self):
         return Blog.find_by_author_id(self._id)
+
+    def new_blog(self, title, description):
+        blog = Blog(self.email, title, description, self._id)
+        blog.save_to_mongo()
+
+    @staticmethod
+    def new_post(blog_id, title, content):
+        blog = Blog.from_mongo(blog_id)
+        blog.new_post(title, content)
 
     def json(self):
         return {
