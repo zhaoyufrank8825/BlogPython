@@ -3,16 +3,14 @@ from models.post import Post
 from src.models.blog import Blog
 from src.common.database import Database 
 from src.models.user import User
-from dotenv import load_dotenv
 
 
-load_dotenv()
 app = Flask(__name__)
 app.secret_key="zhaoyu"
 
 @app.route("/")
 def hello():
-    return render_template("register.html")
+    return render_template("login.html")
 
 @app.route("/login")
 def login():

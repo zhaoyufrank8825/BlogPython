@@ -5,11 +5,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Database:
+    URI="mongodb+srv://zhaoyufrank8825:yingying8825@cluster0.x1tdu.mongodb.net/test"
     DATABASE = None
 
     @staticmethod
     def initialize():
-        client = pymongo.MongoClient(os.environ.get("MONGODB_URI"))
+        client = pymongo.MongoClient(Database.URI)
         Database.DATABASE = client["myblog"]
 
     @staticmethod
