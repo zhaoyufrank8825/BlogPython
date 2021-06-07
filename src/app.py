@@ -3,8 +3,10 @@ from models.post import Post
 from src.models.blog import Blog
 from src.common.database import Database 
 from src.models.user import User
+from dotenv import load_dotenv
 
 
+load_dotenv()
 app = Flask(__name__)
 app.secret_key="zhaoyu"
 
