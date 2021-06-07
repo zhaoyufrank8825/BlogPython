@@ -1,8 +1,5 @@
-import pymongo, os
-from dotenv import load_dotenv
+import pymongo
 
-
-load_dotenv()
 
 class Database:
     URI="mongodb+srv://zhaoyufrank8825:yingying8825@cluster0.x1tdu.mongodb.net/test"
