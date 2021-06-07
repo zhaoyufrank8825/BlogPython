@@ -10,7 +10,7 @@ app.secret_key="zhaoyu"
 
 @app.route("/")
 def hello():
-    return render_template("login.html")
+    return render_template("register.html")
 
 @app.route("/login")
 def login():
