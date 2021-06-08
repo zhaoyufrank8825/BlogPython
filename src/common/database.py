@@ -1,8 +1,12 @@
 import pymongo
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class Database:
-    URI="mongodb+srv://zhaoyufrank8825:yingying8825@cluster0.x1tdu.mongodb.net/test"
+    URI=os.environ.get("MONGODB_URI")
     DATABASE = None
 
     @staticmethod
